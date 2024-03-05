@@ -1,6 +1,7 @@
 resource "aws_db_subnet_group" "rds_subnetgroup" {
   name      = "rds-subnet-main"
   subnet_ids = [aws_subnet.vpc_private_subnet_private_6.id, aws_subnet.vpc_private_subnet_private_5.id]
+}
 
 resource "aws_db_instance" "poc-postgreSQL" {
   allocated_storage    = var.rds.storage
