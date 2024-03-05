@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "cdnpocjava" {
   origin {
-    domain_name              = aws_lb.${loadbalancer_id}_domain_name
+    domain_name              = javaeamplepoc.com
     origin_access_control_id = aws_cloudfront_origin_access_control.default.id
     origin_id                = "loadbalancer"
   }
