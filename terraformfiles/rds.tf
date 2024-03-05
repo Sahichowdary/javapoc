@@ -1,10 +1,14 @@
+resource "aws_db_subnet_group" "rds_subnetgroup" {
+  name      = "rds-subnet-main"
+  subnet_ids = [aws_subnet.vpc_private_subnet_private_6.id, aws_subnet.vpc_private_subnet_private_5.id]
+
 resource "aws_db_instance" "poc-postgreSQL" {
   allocated_storage    = var.rds.storage
   db_name              = "employee_management_system"
   identifier           = var.rds.name
   engine               = "postgreSQL"
   engine_version       = var.rds.engine_version
-  db_subnet_group_name  = aws_db_subnet_group.default.id
+  db_subnet_group_name  = aws_db_subnet_group.rds_subnetgroup.id
   instance_class       = "db.t3.micro"
   username             = var.rds.username
   password             = var.rds.password
