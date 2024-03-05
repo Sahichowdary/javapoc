@@ -1,6 +1,6 @@
 resource "aws_eks_cluster" "eks_main" {
   name     = "Demo-POC"
-  role_arn = aws_iam_role.EKSClusterRole.arn
+  role_arn = aws_iam_role.EKSClusterRole-poc.arn
 
   vpc_config {
     endpoint_public_access = false
