@@ -40,6 +40,6 @@ resource "aws_internet_gateway" "public_vpc_igw" {
 }
 
 resource "aws_route_table_association" "vpc_public_igw_rtb_association" {
-  gateway_id      = aws_subnet.aws_igw.id
+  gateway_id      = aws_internet_gateway.public_vpc_igw.id
   route_table_id = aws_route_table.public_vpc_route_table.id
 }
