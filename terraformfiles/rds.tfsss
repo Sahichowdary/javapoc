@@ -1,10 +1,17 @@
-resource "aws_db_instance" "provate_poc_db" {
-  allocated_storage           = 10
-  db_name                     = "mydb"
-  engine                      = "postgreSQL"
-  engine_version              = "16.1-R2"
-  instance_class              = "db.m5d.large"
-  manage_master_user_password = true
-  username                    = "awsdp_javapoc"
-  parameter_group_name        = "default.mysql5.7"
+resource "aws_db_instance" "my-sql" {
+  allocated_storage    = var.rds.storage
+  db_name              = "employee_management_system"
+  identifier           = var.rds.name
+  engine               = "postgreSQL"
+  engine_version       = var.rds.engine_version
+  db_subnet_group_name  = aws_db_subnet_group.default.id
+  instance_class       = "db.t3.micro"
+  username             = var.rds.username
+  password             = var.rds.password
+  parameter_group_name = "default.mysql8.0"
+  skip_final_snapshot  = true
+  publicly_accessible = var.rds.public_access
+  storage_type = "standard"
+  vpc_security_group_ids = [aws_security_group.eks_cluster_sg.id]
+  depends_on = [ aws_vpc_security_group_ingress_rule.allow_all ]
 }
