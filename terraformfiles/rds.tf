@@ -18,5 +18,5 @@ resource "aws_db_instance" "poc-postgreSQL" {
   publicly_accessible = var.rds.public_access
   storage_type = "standard"
   vpc_security_group_ids = [aws_security_group.eks_cluster_sg.id]
-  depends_on = [ aws_vpc_security_group_ingress_rule.allow_all ]
+  depends_on = [ aws_vpc_security_group_ingress_rule.id ]
 }
