@@ -1,14 +1,14 @@
 variable "region" {
     description = "used to specify the region"
-    default = "us-west-2"
+    default = "us-east-1"
 }
 
 variable "availability_zone" {
-    default = "us-west-2a"
+    default = "us-east-1a"
 }
 
 variable "availability_zone2" {
-    default = "us-west-2b"
+    default = "us-east-1b"
 }
 
 variable "eks_cluster_role" {
