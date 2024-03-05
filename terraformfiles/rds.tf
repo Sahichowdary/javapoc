@@ -3,7 +3,7 @@ resource "aws_db_subnet_group" "rds_subnetgroup" {
   subnet_ids = [aws_subnet.vpc_private_subnet_private_6.id, aws_subnet.vpc_private_subnet_private_5.id]
 }
 
-resource "aws_db_instance" "poc-postgreSQL" {
+resource "aws_db_instance" "poc-postgresql" {
   allocated_storage    = var.rds.storage
   db_name              = "employee_management_system"
   identifier           = var.rds.name
