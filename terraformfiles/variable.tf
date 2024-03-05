@@ -12,7 +12,7 @@ variable "availability_zone2" {
 }
 
 variable "eks_cluster_role" {
-    default = "arn:aws:iam::036965198866:role/aws_eks_demo_test"
+    default = "arn:aws:iam::036965198866:role/AmazonEKSClusterRole"
 }
 
 variable "eks_node_role" {
