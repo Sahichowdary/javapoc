@@ -1,0 +1,173 @@
+
+resource "aws_instance" "instance1" {
+  ami           = "ami-005e54dee72cc1d00" # ap-southeast-2
+  instance_type = "var.instance_type"
+  subnet_id = "var.subnet_id"
+  key_pair = "Demo-AWS"
+}
+
+resource "aws_iam_role" "poc_role"{
+  name = "poc_role"
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  tags = {
+    tag-key = "tag-value"
+  }
+}
+
+
+resource "aws_iam_policy" "poc_policy"{
+           
+  name        = "test_policy"
+  path        = "/"
+  description = "My test policy"
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      /*{
+        Action = [
+          "ec2:Describe*",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      }*/,
+    ]
+  })
+}
+
+
+
+resource "aws_acm_certificate" "poc_cert"{
+  domain_name       = "example.com"
+  validation_method = "DNS"
+
+  tags = {
+    Environment = "test"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+}
+
+resource "aws_route53_zone" "poc_route53{
+       
+  name = "example.com"
+
+
+}
+
+
+resource "aws_wafv2_web_acl" "example" {
+  name        = "managed-rule-example"
+  description = "Example of a managed rule."
+  scope       = "REGIONAL"
+
+  default_action {
+    allow {}
+  }
+
+  rule {
+    name     = "rule-1"
+    priority = 1
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesCommonRuleSet"
+        vendor_name = "AWS"
+
+        rule_action_override {
+          action_to_use {
+            count {}
+          }
+
+          name = "SizeRestrictions_QUERYSTRING"
+        }
+
+        rule_action_override {
+          action_to_use {
+            count {}
+          }
+
+          name = "NoUserAgent_HEADER"
+        }
+
+        scope_down_statement {
+          geo_match_statement {
+            country_codes = ["US", "NL"]
+          }
+        }
+      }
+    }
+
+    token_domains = ["mywebsite.com", "myotherwebsite.com"]
+
+    visibility_config {
+      cloudwatch_metrics_enabled = false
+      metric_name                = "friendly-rule-metric-name"
+      sampled_requests_enabled   = false
+    }
+  }
+
+  tags = {
+    Tag1 = "Value1"
+    Tag2 = "Value2"
+  }
+
+  visibility_config {
+    cloudwatch_metrics_enabled = false
+    metric_name                = "friendly-metric-name"
+    sampled_requests_enabled   = false
+  }
+}
+
+
+
+
+resource "aws_cloudfront_distribution" "poc_cloudfront"{
+       
+
+}
+
+resource "aws_ecr_repository" "poc_ecr"{
+       
+
+}
+
+resource "aws_lb" "poc_lb"{
+       
+
+}
+
+resource "aws_cloudwatch_metrics_alarm" "poc_cloudwatch"{
+       
+
+}
+
+resource "aws_eks_cluster" "poc_cluster"{
+
+
+}
