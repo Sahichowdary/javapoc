@@ -27,3 +27,14 @@ variable "loadbalancer_id" {
     default = " "
     
 }
+
+variable "rds" {
+  type = object({
+  name = "postgresql-poc-rds"
+  storage = 5
+  engine_version = "8.0"
+  username =  "admin"
+  password = "admin"
+  public_access = true
+  })
+}
