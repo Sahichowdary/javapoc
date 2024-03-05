@@ -1,4 +1,4 @@
-resource "aws_db_instance" "my-sql" {
+resource "aws_db_instance" "poc-postgreSQL" {
   allocated_storage    = var.rds.storage
   db_name              = "employee_management_system"
   identifier           = var.rds.name
