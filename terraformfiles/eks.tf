@@ -1,6 +1,6 @@
 resource "aws_eks_cluster" "eks_main" {
   name     = "Demo-POC"
-  role_arn = var.eks_cluster_role
+  role_arn = aws_iam_role.EKSClusterRole.arn
 
   vpc_config {
     endpoint_public_access = false
@@ -8,13 +8,13 @@ resource "aws_eks_cluster" "eks_main" {
     subnet_ids = [aws_subnet.vpc_private_subnet_private_1.id, aws_subnet.vpc_private_subnet_private_2.id, aws_subnet.vpc_private_subnet_private_3.id, aws_subnet.vpc_private_subnet_private_4.id, aws_subnet.vpc_private_subnet_private_6.id, aws_subnet.vpc_private_subnet_private_6.id]
   }
 
-  version = "1.28"
+  version = "1.29"
 
-#  encryption_config {
-#    resources = ["secrets"]
-#    provider {
-#
-#        key_arn = var.eks_encryption_key
-#    }
-#  }
+  encryption_config {
+    resources = ["secrets"]
+    provider {
+
+        key_arn = var.eks_encryption_key
+    }
+  }
 }
