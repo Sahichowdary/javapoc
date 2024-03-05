@@ -30,11 +30,11 @@ variable "loadbalancer_id" {
 
 variable "rds" {
   type = object({
-  name = "postgresql-poc-rds"
-  storage = 5
-  engine_version = "8.0"
-  username =  "admin"
-  password = "admin"
-  public_access = true
+    name = string
+    storage = number
+    engine_version = string
+    username = string
+    password = string
+    public_access = bool
   })
 }
