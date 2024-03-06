@@ -1,6 +1,6 @@
 rds = {
   name = "mysqlpoc"
-  storage = 5
+  storage = 10
   engine_version = "8.0"
   username =  "admin"
   password = "admin"
