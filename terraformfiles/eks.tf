@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "eks_main" {
-  name     = "Demo-POC"
+  name     = "ekspocdemo"
   role_arn = var.eks_cluster_role
 
   vpc_config {
