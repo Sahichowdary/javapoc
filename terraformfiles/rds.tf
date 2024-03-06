@@ -5,7 +5,7 @@ resource "aws_db_subnet_group" "rds_subnetgroup" {
 
 resource "aws_db_instance" "my-sql" {
   allocated_storage    = var.rds.storage
-  db_name              = "employee_management_system"
+  db_name              = "poc_sasken"
   identifier           = var.rds.name
   engine               = "mysql"
   engine_version       = var.rds.engine_version
