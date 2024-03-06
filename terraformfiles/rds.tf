@@ -9,7 +9,7 @@ resource "aws_db_instance" "my-sql" {
   identifier           = var.rds.name
   engine               = "mysql"
   engine_version       = var.rds.engine_version
-  db_subnet_group_name  = aws_db_subnet_group.default.id
+  db_subnet_group_name  = aws_db_subnet_group.rds_subnetgroup.id
   instance_class       = "db.t3.micro"
   username             = var.rds.username
   password             = var.rds.password
