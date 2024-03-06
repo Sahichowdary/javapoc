@@ -17,6 +17,6 @@ resource "aws_db_instance" "my-sql" {
   skip_final_snapshot  = true
   publicly_accessible = var.rds.public_access
   storage_type = "standard"
-  vpc_security_group_ids = [aws_security_group.example.id]
-  depends_on = [ aws_vpc_security_group_ingress_rule.allow_all ]
+  vpc_security_group_ids = [aws_security_group.eks_cluster_sg.id]
+  depends_on = [aws_db_subnet_group.rds_subnetgroup]
 }
