@@ -1,5 +1,5 @@
 rds = {
-  name = "postgresqlpocrds"
+  name = "mysqlpoc"
   storage = 5
   engine_version = "8.0"
   username =  "admin"
