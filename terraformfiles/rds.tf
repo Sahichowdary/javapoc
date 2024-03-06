@@ -1,15 +1,15 @@
 resource "aws_db_subnet_group" "rds_subnetgroup" {
   name      = "rds-subnet-main"
-  subnet_ids = [aws_subnet.vpc_private_subnet_private_6.id, aws_subnet.vpc_private_subnet_private_5.id]
+  subnet_ids = [aws_subnet.vpc_private_subnet_private_6.id, aws_subnet.vpc_private_subnet_private_5.id, aws_subnet.vpc_private_subnet_private_3.id, aws_subnet.vpc_private_subnet_private_4.id]
 }
 
-resource "aws_db_instance" "poc-postgresql" {
+resource "aws_db_instance" "my-sql" {
   allocated_storage    = var.rds.storage
   db_name              = "employee_management_system"
   identifier           = var.rds.name
-  engine               = "postgreSQL"
+  engine               = "mysql"
   engine_version       = var.rds.engine_version
-  db_subnet_group_name  = aws_db_subnet_group.rds_subnetgroup.id
+  db_subnet_group_name  = aws_db_subnet_group.default.id
   instance_class       = "db.t3.micro"
   username             = var.rds.username
   password             = var.rds.password
@@ -17,6 +17,6 @@ resource "aws_db_instance" "poc-postgresql" {
   skip_final_snapshot  = true
   publicly_accessible = var.rds.public_access
   storage_type = "standard"
-  vpc_security_group_ids = [aws_security_group.eks_cluster_sg.id]
-  depends_on = [aws_db_subnet_group.rds_subnetgroup]
+  vpc_security_group_ids = [aws_security_group.example.id]
+  depends_on = [ aws_vpc_security_group_ingress_rule.allow_all ]
 }
