@@ -11,10 +11,7 @@ resource "aws_eks_node_group" "eks_main" {
   version = "1.29"
   #release_version = "xxx"
   depends_on = [
-    aws_iam_role_policy_attachment.eks_service_role_policy,
-    aws_iam_role_policy_attachment.eks_node_group_role_policy,
-    aws_iam_role_policy_attachment.eks_node_group_additional_policy,
-    aws_eks_cluster.eks_main
+    aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy
   ]
 
 }
