@@ -56,7 +56,7 @@ resource "aws_route_table_association" "vpc_private_subnet_private_2_rtb_associa
 resource "aws_subnet" "vpc_private_subnet_private_3" {
   vpc_id     = aws_vpc.vpc_private.id
   cidr_block = "172.34.32.0/20"
-  availability_zone = var.availability_zone
+  availability_zone = var.availability_zone3
 
   tags = {
     Name = "pocdemo-subnet-private3-us-west-2a"
@@ -112,7 +112,7 @@ resource "aws_route_table_association" "vpc_private_subnet_private_5_rtb_associa
 resource "aws_subnet" "vpc_private_subnet_private_6" {
   vpc_id     = aws_vpc.vpc_private.id
   cidr_block = "172.34.80.0/20"
-  availability_zone = var.availability_zone
+  availability_zone = var.availability_zone3
 
   tags = {
     Name = "pocdemo-subnet-private3-us-west-2a"
