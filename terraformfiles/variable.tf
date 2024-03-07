@@ -11,12 +11,16 @@ variable "availability_zone2" {
     default = "us-east-1b"
 }
 
+variable "availability_zone3" {
+    default = "us-east-1c"
+}
+
 variable "eks_cluster_role" {
-    default = "arn:aws:iam::036965198866:role/AmazonEKSClusterRole2"
+    default = "arn:aws:iam::036965198866:role/eks_service_role"
 }
 
 variable "eks_node_role" {
-    default = "arn:aws:iam::036965198866:role/AmazonEKSNodeRole"
+    default = "arn:aws:iam::036965198866:role/eks_node_group_role"
 }
 
 variable "eks_encryption_key" {
