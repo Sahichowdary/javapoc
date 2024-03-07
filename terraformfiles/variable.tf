@@ -16,7 +16,7 @@ variable "availability_zone3" {
 }
 
 variable "eks_cluster_role" {
-    default = "arn:aws:iam::036965198866:role/eks_service_role"
+    default = "aws_iam_role.pocEKSClusterRole.arn"
 }
 
 variable "eks_node_role" {
