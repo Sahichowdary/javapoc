@@ -29,7 +29,6 @@ resource "null_resource" "execute_script" {
   depends_on = [aws_db_instance.my-sql]
 
   provisioner "local-exec" {
-    when    = "create"
     command = "bash execute_sql_script.sh ${aws_db_instance.my-sql.endpoint} ${aws_db_instance.my-sql.username} ${aws_db_instance.my-sql.password}"
   }
 }
