@@ -21,12 +21,14 @@ resource "aws_db_instance" "my-pocsql" {
   depends_on = [aws_db_subnet_group.rds_subnetgroup] 
 
   provisioner "local-exec" {
-     command = "mysql -h ${self.endpoint} -u ${var.rds.username} -p ${var.rds.password}"
-     command = "const query = `INSERT INTO FoodFinder.users (first_name, last_name, username, email, password) VALUES(?, ?, ?, ?, ?)`;"
-     command = "CREATE DATABASE foodfinder;"
-     commabd = "use foodfinder;"
-     command = "CREATE TABLE users ( first_name varchar(255), last_name varchar(255), username varchar(255), email varchar(255), password varchar(255) );"
-     command = "insert into users values ( "raj", "kapoor", "rajKapoor", "raj.kapoor@gmail.com", "rajKapoor");"
+     command = <<-EOT
+      "mysql -h ${self.endpoint} -u ${var.rds.username} -p ${var.rds.password}"
+      "const query = `INSERT INTO FoodFinder.users (first_name, last_name, username, email, password) VALUES(?, ?, ?, ?, ?)`;"
+      "CREATE DATABASE foodfinder;"
+      "use foodfinder;"
+      "CREATE TABLE users ( first_name varchar(255), last_name varchar(255), username varchar(255), email varchar(255), password varchar(255) );"
+      "insert into users values ( "raj", "kapoor", "rajKapoor", "raj.kapoor@gmail.com", "rajKapoor");"
+    EOT
         }
 }
 
