@@ -1,6 +1,6 @@
 # IAM role for Amazon EKS service
 resource "aws_iam_role" "eks_service_role" {
-  name               = "eks-poc-service-role"
+  name               = "eks-poc-service2-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -25,7 +25,7 @@ resource "aws_iam_role_policy_attachment" "eks_service_role_policy" {
 
 # IAM role for Amazon EKS node groups
 resource "aws_iam_role" "eks_node_group_role" {
-  name               = "eks-pocnode-group-role"
+  name               = "eks-pocnode-group2-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -56,5 +56,5 @@ resource "aws_iam_role_policy_attachment" "eks_node_group_additional_policy" {
 
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = "${aws_iam_role.eks_nodes_group_role.name}"
+  role       = aws_iam_role.eks_nodes_group_role.name
 }
