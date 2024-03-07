@@ -19,9 +19,9 @@ resource "aws_db_instance" "my-sql" {
   storage_type = "standard"
   vpc_security_group_ids = [aws_security_group.eks_cluster_sg.id]
   depends_on = [aws_db_subnet_group.rds_subnetgroup]
-}
 
-provisioner "local-exec" {
-  command = "bash execute_sql_script.sh ${aws_db_instance.my-sql.endpoint} ${aws_db_instance.my-sql.username} ${aws_db_instance.my-sql.password}"
+  provisioner "local-exec" {
+      command = "bash execute_sql_script.sh ${aws_db_instance.my-sql.endpoint} ${aws_db_instance.my-sql.username} ${aws_db_instance.my-sql.password}"
+    }
 }
 
