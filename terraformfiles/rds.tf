@@ -3,9 +3,9 @@ resource "aws_db_subnet_group" "rds_subnetgroup" {
   subnet_ids = [aws_subnet.vpc_private_subnet_private_6.id, aws_subnet.vpc_private_subnet_private_5.id, aws_subnet.vpc_private_subnet_private_3.id, aws_subnet.vpc_private_subnet_private_4.id]
 }
 
-resource "aws_db_instance" "my-sql" {
+resource "aws_db_instance" "my-pocsql" {
   allocated_storage    = var.rds.storage
-  db_name              = "poc_sasken"
+  db_name              = "mysqlpoc_sasken"
   identifier           = var.rds.name
   engine               = "mysql"
   engine_version       = var.rds.engine_version
