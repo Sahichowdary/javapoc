@@ -20,7 +20,7 @@ variable "eks_cluster_role" {
 }
 
 variable "eks_node_role" {
-    default = "arn:aws:iam::036965198866:role/eks_node_group_role"
+    default = "aws_iam_role.pocAmazonEKSNodeRole.arn"
 }
 
 variable "eks_encryption_key" {
