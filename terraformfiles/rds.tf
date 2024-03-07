@@ -21,7 +21,7 @@ resource "aws_db_instance" "my-pocsql" {
   depends_on = [aws_db_subnet_group.rds_subnetgroup] 
 
  # provisioner "local-exec" {
- #    command = "bash execute_sql_script.sh ${self.endpoint} ${self.username} ${self.password}"
+ #    command = "mysql -h ${self.endpoint} -u ${var.rds.username} -p${var.rds.password} < path_to_your_sql_script.sql"
  # }
 }
 
