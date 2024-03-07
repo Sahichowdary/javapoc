@@ -21,7 +21,6 @@ resource "aws_db_instance" "my-sql" {
   depends_on = [aws_db_subnet_group.rds_subnetgroup] 
 
   provisioner "local-exec" {
-      when    = "create"
       command = "bash execute_sql_script.sh ${self.endpoint} ${self.username} ${self.password}"
     }
 }
