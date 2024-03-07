@@ -18,6 +18,7 @@ resource "aws_eks_cluster" "eks_main" {
     }
   }
   depends_on = [
-    
+    aws_iam_role.EKSClusterRole,
+    aws_iam_role.AmazonEKSNodeRole
   ]
 }
