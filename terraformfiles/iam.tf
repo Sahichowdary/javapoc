@@ -1,6 +1,6 @@
 # IAM role for Amazon EKS service
 resource "aws_iam_role" "eks_service_role" {
-  name               = "eks-service-role"
+  name               = "eks-poc-service-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -25,7 +25,7 @@ resource "aws_iam_role_policy_attachment" "eks_service_role_policy" {
 
 # IAM role for Amazon EKS node groups
 resource "aws_iam_role" "eks_node_group_role" {
-  name               = "eks-node-group-role"
+  name               = "eks-pocnode-group-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
