@@ -16,7 +16,7 @@ variable "eks_cluster_role" {
 }
 
 variable "eks_node_role" {
-    default = "arn:aws:iam::036965198866:role/AmazonEKSNodeRole2"
+    default = "arn:aws:iam::036965198866:role/AmazonEKSNodeRole"
 }
 
 variable "eks_encryption_key" {
