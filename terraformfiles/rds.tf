@@ -20,8 +20,8 @@ resource "aws_db_instance" "my-pocsql" {
   vpc_security_group_ids = [aws_security_group.eks_cluster_sg.id]
   depends_on = [aws_db_subnet_group.rds_subnetgroup] 
 
- # provisioner "local-exec" {
- #    command = "mysql -h ${self.endpoint} -u ${var.rds.username} -p${var.rds.password} < path_to_your_sql_script.sql"
- # }
+  provisioner "local-exec" {
+     command = "mysql -h ${self.endpoint} -u ${var.rds.username} -p${var.rds.password} < path_to_your_sql_script.sql"
+   }
 }
 
