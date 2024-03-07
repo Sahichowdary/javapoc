@@ -18,8 +18,7 @@ resource "aws_db_instance" "my-sql" {
   publicly_accessible = var.rds.public_access
   storage_type = "standard"
   vpc_security_group_ids = [aws_security_group.eks_cluster_sg.id]
-  depends_on = [aws_db_subnet_group.rds_subnetgroup]  
-}
+  depends_on = [aws_db_subnet_group.rds_subnetgroup] 
 
   provisioner "local-exec" {
       when    = "create"
