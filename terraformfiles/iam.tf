@@ -1,66 +1,52 @@
-# IAM role for Amazon EKS service
-resource "aws_iam_role" "eks_service_role" {
-  name               = "eks-poc-service2-role"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
+resource "aws_iam_role" "EKSClusterRole" {
+  name = "pocEKSClusterRole"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "eks.amazonaws.com"
+        }
       },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
+    ]
+  })
 }
 
-# Attach policy to Amazon EKS service role
-resource "aws_iam_role_policy_attachment" "eks_service_role_policy" {
-  role       = aws_iam_role.eks_service_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-}
-
-resource "aws_iam_role_policy_attachment" "eks_service_role_additional_policy" {
-  role       = aws_iam_role.eks_service_role.name
-  policy_arn = "arn:aws:iam::aws:policy/ekspocsasken"
-}
-
-
-# IAM role for Amazon EKS node groups
-resource "aws_iam_role" "eks_node_group_role" {
-  name               = "eks-pocnode-group2-role"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
+resource "aws_iam_role" "AmazonEKSNodeRole" {
+  name = "pocAmazonEKSNodeRole"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
       },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
+    ]
+  })
 }
 
-# Attach policy to Amazon EKS node group role
-resource "aws_iam_role_policy_attachment" "eks_node_group_role_policy" {
-  role       = aws_iam_role.eks_node_group_role.name
+resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.EKSClusterRole2.name
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role       = aws_iam_role.AmazonEKSNodeRole2.name
 }
 
-# Attach additional policies as needed for node groups
-resource "aws_iam_role_policy_attachment" "eks_node_group_additional_policy" {
-  role       = aws_iam_role.eks_node_group_role.name
+
+resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.AmazonEKSNodeRole2.name
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.AmazonEKSNodeRole2.name
 }
-
-#resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
-#  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-#  role       = aws_iam_role.eks_nodes_group_role.name
-#}
