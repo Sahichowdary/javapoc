@@ -39,7 +39,7 @@ resource "aws_eks_cluster" "eks-poc-main" {
     aws_iam_role_policy_attachment.AmazonEKSClusterPolicy,
     # aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
   ]
-
+}
 output "endpoint" {
   value = aws_eks_cluster.eks-poc-main.endpoint
 }
