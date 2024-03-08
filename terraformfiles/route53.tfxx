@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "poc_route53_zone" {
-  name = "javaexpamplepoc.com"
+  name = "saskenpoc.com"
 
   tags = {
     Environment = "test"
