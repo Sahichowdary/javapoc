@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "poc_cert_app" {
-  domain_name       = "pocapp.com"
+  domain_name       = "saskenpoc.com"
   validation_method = "DNS"
 
   tags = {
