@@ -25,7 +25,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
  }
 #creating eks cluster
 resource "aws_eks_cluster" "eks-poc-main" {
-  name     = eks-poc-main
+  name     = "Demo-POC"
   role_arn = aws_iam_role.eks-iam-role.arn
   version = "1.29"
 
@@ -39,11 +39,6 @@ resource "aws_eks_cluster" "eks-poc-main" {
     aws_iam_role_policy_attachment.AmazonEKSClusterPolicy,
     # aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
   ]
-  tags = {
-    Name = eks-poc-main
-    region = var.region
-  }
-}
 
 output "endpoint" {
   value = aws_eks_cluster.eks-poc-main.endpoint
