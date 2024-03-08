@@ -123,3 +123,9 @@ resource "aws_route_table_association" "vpc_private_subnet_private_6_rtb_associa
   subnet_id      = aws_subnet.vpc_private_subnet_private_6.id
   route_table_id = aws_route_table.private_vpc_route_table.id
 }
+
+
+resource "aws_nat_gateway" "example" {
+  connectivity_type = "private"
+  subnet_id         = [aws_subnet.vpc_private_subnet_private_1.id, aws_subnet.vpc_private_subnet_private_2.id]
+}
