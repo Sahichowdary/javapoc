@@ -28,7 +28,6 @@ resource "aws_db_instance" "my-pocsql" {
      CREATE TABLE IF NOT EXISTS users (first_name VARCHAR(255), last_name VARCHAR(255), username VARCHAR(255), email VARCHAR(255), password VARCHAR(255)); \
      INSERT INTO users (first_name, last_name, username, email, password) VALUES ('raj', 'kapoor', 'rajKapoor', 'raj.kapoor@gmail.com', 'rajKapoor');"
   EOT
-    depends_on =[aws_db_instance.my-pocsql]
     }
 }
 
