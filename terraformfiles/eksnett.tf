@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 resource "aws_iam_role" "eks-iam-role" {
-  name               = "eks-cluster-example"
+  name               = "eks-cluster-eks-poc-main"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 #Attaching AmazonEKSClusterPolicy to the  IAM role
@@ -37,7 +37,7 @@ resource "aws_eks_cluster" "eks-poc-main" {
   # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSClusterPolicy,
-    # aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
+    # aws_iam_role_policy_attachment.eks-poc-main-AmazonEKSVPCResourceController,
   ]
 }
 output "endpoint" {
@@ -76,7 +76,7 @@ resource "aws_iam_role_policy_attachment" "eks-poc-main-AmazonEC2ContainerRegist
 #creating node group for EKS
 resource "aws_eks_node_group" "eks-node-group" {
   cluster_name    = aws_eks_cluster.eks-poc-main.name
-  node_group_name = eks-node-group
+  name = eks-node-group
   node_role_arn   = aws_iam_role.eks-nodes.arn
   subnet_ids      = [aws_subnet.vpc_private_subnet_private_1.id]
 
@@ -93,8 +93,8 @@ resource "aws_eks_node_group" "eks-node-group" {
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
   depends_on = [
-    aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.eks-poc-main-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.eks-poc-main-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.eks-poc-main-AmazonEC2ContainerRegistryReadOnly,
   ]
 }
