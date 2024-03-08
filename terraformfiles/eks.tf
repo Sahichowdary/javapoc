@@ -31,17 +31,3 @@ resource "aws_eks_cluster" "eks_poc_main" {
   ]
 }
 
-resource "aws_eks_cluster_auth" "my_cluster_auth" {
-  name = aws_eks_cluster.my_cluster.name
-
-  depends_on = [
-    aws_eks_cluster.eks_poc_main,
-  ]
-}
-
-resource "aws_eks_cluster_update_config" "cluster_update" {
-  name       = aws_eks_cluster.eks_poc_main.name
-  version    = "1.29"  # The Kubernetes version for which to enable auto-upgrades
-  enabled    = true
-  wait_for_completion = true
-}
