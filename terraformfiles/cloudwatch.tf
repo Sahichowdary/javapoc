@@ -39,7 +39,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpu_utilization" {
   alarm_actions       = [aws_sns_topic.rds_notifications.arn]
 
   dimensions = {
-    DBInstanceIdentifier = aws_db_instance.my-sqlpoc.id
+    DBInstanceIdentifier = aws_db_instance.my-pocsql.id
   }
 }
 
