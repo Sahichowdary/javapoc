@@ -20,11 +20,3 @@ resource "aws_eks_node_group" "eks_poc_main" {
   ]
 }
 
-resource "aws_eks_node_group_update_config" "node_group_update" {
-  cluster_name    = aws_eks_cluster.eks_poc_main.name
-  node_group_name = aws_eks_node_group.eks_poc_main.name
-  version         = "1.29"  # The Kubernetes version for which to enable auto-upgrades
-
-  enabled    = true
-  wait_for_completion = true
-}
