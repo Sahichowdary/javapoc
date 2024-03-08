@@ -133,3 +133,12 @@ resource "aws_nat_gateway" "nat_gateway" {
   subnet_id     = aws_subnet.vpc_private_subnet_private_1.id
 }
 
+
+resource "aws_eip" "nat_eip2" {
+  vpc      = true
+}
+
+resource "aws_nat_gateway" "nat_gateway2" {
+  allocation_id = aws_eip.nat_eip2.id
+  subnet_id     = aws_subnet.vpc_private_subnet_private_2.id
+}
