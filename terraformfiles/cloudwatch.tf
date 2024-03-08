@@ -11,7 +11,7 @@ resource "aws_cloudwatch_metric_alarm" "eks_cpu_utilization" {
   alarm_actions       = [aws_sns_topic.eks_notifications.arn]
 
   dimensions = {
-    ClusterName = aws_eks_cluster.eks_cluster.name
+    ClusterName = aws_eks_cluster.eks_poc_main.name
   }
 }
 
@@ -39,7 +39,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpu_utilization" {
   alarm_actions       = [aws_sns_topic.rds_notifications.arn]
 
   dimensions = {
-    DBInstanceIdentifier = aws_db_instance.my_rds_instance.id
+    DBInstanceIdentifier = aws_db_instance.my-sqlpoc.id
   }
 }
 
