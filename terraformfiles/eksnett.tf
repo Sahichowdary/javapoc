@@ -45,7 +45,7 @@ output "endpoint" {
 }
 #Creating IAM for Node group
 resource "aws_iam_role" "eks-nodes" {
-  name = "eks-node-group-role"
+  name = "eks-node-group-role-poc-main"
 
   assume_role_policy = jsonencode({
     Statement = [{
