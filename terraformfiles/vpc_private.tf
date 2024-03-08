@@ -125,7 +125,7 @@ resource "aws_route_table_association" "vpc_private_subnet_private_6_rtb_associa
 }
 
 resource "aws_eip" "nat_eip" {
-  vpc      = true
+  vpc      = aws_vpc.vpc_private.id
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
@@ -135,7 +135,7 @@ resource "aws_nat_gateway" "nat_gateway" {
 
 
 resource "aws_eip" "nat_eip2" {
-  vpc      = true
+  vpc      = aws_vpc.vpc_private.id
 }
 
 resource "aws_nat_gateway" "nat_gateway2" {
