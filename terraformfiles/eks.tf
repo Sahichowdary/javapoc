@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "eks_poc_main" {
-  name     = "ekspocdemo1"
+  name     = "ekspocdemo"
   role_arn = var.eks_cluster_role
   version = "1.29"
 
