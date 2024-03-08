@@ -27,6 +27,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
 resource "aws_eks_cluster" "eks-poc-main" {
   name     = eks-poc-main
   role_arn = aws_iam_role.eks-iam-role.arn
+  version = "1.29"
 
   vpc_config {
     subnet_ids = [aws_subnet.vpc_private_subnet_private_1.id, aws_subnet.vpc_private_subnet_private_2.id, aws_subnet.vpc_private_subnet_private_3.id, aws_subnet.vpc_private_subnet_private_4.id]
