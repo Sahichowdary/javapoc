@@ -14,7 +14,7 @@ resource "aws_subnet" "vpc_private_subnet_private_1" {
   availability_zone = var.availability_zone
 
   tags = {
-    Name = "pocdemo-subnet-private1-us-west-2a"
+    Name = "pocdemo-subnet-private1-us-east-1a"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "vpc_private_subnet_private_2" {
   availability_zone = var.availability_zone2
 
   tags = {
-    Name = "pocdemo-subnet-private2-us-west-2a"
+    Name = "pocdemo-subnet-private2-us-east-1b"
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_subnet" "vpc_private_subnet_private_3" {
   availability_zone = var.availability_zone3
 
   tags = {
-    Name = "pocdemo-subnet-private3-us-west-2a"
+    Name = "pocdemo-subnet-private3-us-east-1c"
   }
 }
 
@@ -53,7 +53,7 @@ resource "aws_subnet" "vpc_private_subnet_private_4" {
   availability_zone = var.availability_zone2
 
   tags = {
-    Name = "pocdemo-subnet-private4-us-west-2a"
+    Name = "pocdemo-subnet-private4-us-east-1b"
   }
 }
 
@@ -67,7 +67,7 @@ resource "aws_subnet" "vpc_private_subnet_private_5" {
   availability_zone = var.availability_zone
 
   tags = {
-    Name = "pocdemo-subnet-private3-us-west-2a"
+    Name = "pocdemo-subnet-private3-us-east-1a"
   }
 }
 
@@ -79,7 +79,7 @@ resource "aws_subnet" "vpc_private_subnet_private_6" {
   availability_zone = var.availability_zone3
 
   tags = {
-    Name = "pocdemo-subnet-private3-us-west-2a"
+    Name = "pocdemo-subnet-private3-us-east-1c"
   }
 }
 
