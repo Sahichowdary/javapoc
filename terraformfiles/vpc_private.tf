@@ -18,36 +18,6 @@ resource "aws_subnet" "vpc_private_subnet_private_1" {
   }
 }
 
-resource "aws_route_table" "private_vpc_route_table" {
-  vpc_id = aws_vpc.vpc_private.id
-  route = [
-    {
-      cidr_block                 = "0.0.0.0/0"
-      nat_gateway_id             = aws_nat_gateway.nat.id
-      carrier_gateway_id         = ""
-      destination_prefix_list_id = ""
-      egress_only_gateway_id     = ""
-      gateway_id                 = ""
-      instance_id                = ""
-      ipv6_cidr_block            = ""
-      local_gateway_id           = ""
-      network_interface_id       = ""
-      transit_gateway_id         = ""
-      vpc_endpoint_id            = ""
-      vpc_peering_connection_id  = ""
-    },
-  ]
-  tags = {
-    Name = "Private Route table"
-  }
-}
-
-resource "aws_route_table_association" "vpc_private_subnet_private_1_rtb_association" {
-  subnet_id      = aws_subnet.vpc_private_subnet_private_1.id
-  route_table_id = aws_route_table.private_vpc_route_table.id
-}
-
-
 
 
 resource "aws_subnet" "vpc_private_subnet_private_2" {
@@ -58,11 +28,6 @@ resource "aws_subnet" "vpc_private_subnet_private_2" {
   tags = {
     Name = "pocdemo-subnet-private2-us-west-2a"
   }
-}
-
-resource "aws_route_table_association" "vpc_private_subnet_private_2_rtb_association" {
-  subnet_id      = aws_subnet.vpc_private_subnet_private_2.id
-  route_table_id = aws_route_table.private_vpc_route_table.id
 }
 
 
@@ -79,11 +44,6 @@ resource "aws_subnet" "vpc_private_subnet_private_3" {
   }
 }
 
-resource "aws_route_table_association" "vpc_private_subnet_private_3_rtb_association" {
-  subnet_id      = aws_subnet.vpc_private_subnet_private_3.id
-  route_table_id = aws_route_table.private_vpc_route_table.id
-}
-
 
 
 
@@ -95,11 +55,6 @@ resource "aws_subnet" "vpc_private_subnet_private_4" {
   tags = {
     Name = "pocdemo-subnet-private4-us-west-2a"
   }
-}
-
-resource "aws_route_table_association" "vpc_private_subnet_private_4_rtb_association" {
-  subnet_id      = aws_subnet.vpc_private_subnet_private_4.id
-  route_table_id = aws_route_table.private_vpc_route_table.id
 }
 
 
@@ -116,13 +71,6 @@ resource "aws_subnet" "vpc_private_subnet_private_5" {
   }
 }
 
-resource "aws_route_table_association" "vpc_private_subnet_private_5_rtb_association" {
-  subnet_id      = aws_subnet.vpc_private_subnet_private_5.id
-  route_table_id = aws_route_table.private_vpc_route_table.id
-}
-
-
-
 
 
 resource "aws_subnet" "vpc_private_subnet_private_6" {
@@ -135,8 +83,4 @@ resource "aws_subnet" "vpc_private_subnet_private_6" {
   }
 }
 
-resource "aws_route_table_association" "vpc_private_subnet_private_6_rtb_association" {
-  subnet_id      = aws_subnet.vpc_private_subnet_private_6.id
-  route_table_id = aws_route_table.private_vpc_route_table.id
-}
 
