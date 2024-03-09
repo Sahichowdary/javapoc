@@ -1,52 +1,47 @@
-resource "aws_iam_role" "EKSClusterRole" {
-  name = "pocEKSClusterRole"
-  assume_role_policy = jsonencode({
+data "aws_iam_policy_document" "test_oidc_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+    effect  = "Allow"
+
+    condition {
+      test     = "StringEquals"
+      variable = "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
+      values   = ["system:serviceaccount:default:aws-test"]
+    }
+
+    principals {
+      identifiers = [aws_iam_openid_connect_provider.eks.arn]
+      type        = "Federated"
+    }
+  }
+}
+
+resource "aws_iam_role" "test_oidc" {
+  assume_role_policy = data.aws_iam_policy_document.test_oidc_assume_role_policy.json
+  name               = "test-oidc"
+}
+
+resource "aws_iam_policy" "test-policy" {
+  name = "test-policy"
+
+  policy = jsonencode({
+    Statement = [{
+      Action = [
+        "s3:ListAllMyBuckets",
+        "s3:GetBucketLocation"
+      ]
+      Effect   = "Allow"
+      Resource = "arn:aws:s3:::*"
+    }]
     Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "eks.amazonaws.com"
-        }
-      },
-    ]
   })
 }
 
-resource "aws_iam_role" "AmazonEKSNodeRole" {
-  name = "pocAmazonEKSNodeRole"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
+resource "aws_iam_role_policy_attachment" "test_attach" {
+  role       = aws_iam_role.test_oidc.name
+  policy_arn = aws_iam_policy.test-policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.EKSClusterRole.name
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.AmazonEKSNodeRole.name
-}
-
-
-resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.AmazonEKSNodeRole.name
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.AmazonEKSNodeRole.name
+output "test_policy_arn" {
+  value = aws_iam_role.test_oidc.arn
 }
