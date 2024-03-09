@@ -5,6 +5,7 @@ data "aws_route53_zone" "zone" {
 }
 
 # AWS Route53 record resource for certificate validation with dynamic for each loop and properties for name, records, type, zone id, and ttl
+
 resource "aws_route53_record" "cert_validation" {
   for_each = {
     for dvo in aws_acm_certificate.cert.domain_validation_options :
@@ -14,6 +15,18 @@ resource "aws_route53_record" "cert_validation" {
       type    = dvo.resource_record_type
     }
   }
+
+  zone_id = data.aws_route53_zone.zone.zone_id
+
+  dynamic "record" {
+    for_each = each.value
+    content {
+      name    = record.value.name
+      records = record.value.records
+      type    = record.value.type
+    }
+  }
+}
 
   allow_overwrite = true
   name            = each.value.name
