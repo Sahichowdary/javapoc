@@ -45,7 +45,7 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
 
   # Add SSL certificate from ACM
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.poc_cert_app.arn
+    acm_certificate_arn = aws_acm_certificate.cert.arn
     ssl_support_method  = "sni-only"
   }
 
