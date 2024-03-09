@@ -18,7 +18,7 @@ resource "aws_subnet" "vpc_public_subnet_public_1" {
   }
 }
 
-resource "aws_subnet" "vpc_public_subnet_public_1" {
+resource "aws_subnet" "vpc_public_subnet_public_2" {
   vpc_id     = aws_vpc.vpc_public.id
   cidr_block = "172.33.16.0/20"
   availability_zone = var.availability_zone2
