@@ -23,7 +23,7 @@ resource "aws_route_table" "public_vpc_route_table" {
      route = [
     {
       cidr_block                 = "0.0.0.0/0"
-      gateway_id                 = aws_internet_gateway.igw.id
+      gateway_id                 = aws_internet_gateway.public_vpc_igw.id
       nat_gateway_id             = ""
       carrier_gateway_id         = ""
       destination_prefix_list_id = ""
