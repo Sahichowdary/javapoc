@@ -27,6 +27,10 @@ variable "eks_encryption_key" {
     default = "arn:aws:kms:us-east-1:036965198866:key/48e8799d-ee0c-4462-a8da-28ae9073ab40"
 }
 
+variable "domain-name" {
+    default = "saskenpoc.com"
+}
+
 variable "loadbalancer_id" {
     default = " "
     
