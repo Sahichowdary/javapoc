@@ -26,8 +26,6 @@ resource "aws_route53_record" "cert_validation" {
       type    = record.value.type
     }
   }
-}
-
   allow_overwrite = true
   name            = each.value.name
   records         = each.value.records
