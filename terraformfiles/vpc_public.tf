@@ -20,7 +20,7 @@ resource "aws_subnet" "vpc_public_subnet_public_1" {
 
 resource "aws_route_table" "public_vpc_route_table" {
   vpc_id = aws_vpc.vpc_public.id
-     route = [
+  route = [
     {
       cidr_block                 = "0.0.0.0/0"
       gateway_id                 = aws_internet_gateway.public_vpc_igw.id
