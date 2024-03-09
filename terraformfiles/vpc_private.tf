@@ -124,21 +124,3 @@ resource "aws_route_table_association" "vpc_private_subnet_private_6_rtb_associa
   route_table_id = aws_route_table.private_vpc_route_table.id
 }
 
-resource "aws_eip" "nat_eip" {
-  vpc      = aws_vpc.vpc_private.id
-}
-
-resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = aws_eip.nat_eip.id
-  subnet_id     = aws_subnet.vpc_private_subnet_private_1.id
-}
-
-
-resource "aws_eip" "nat_eip2" {
-  vpc      = aws_vpc.vpc_private.id
-}
-
-resource "aws_nat_gateway" "nat_gateway2" {
-  allocation_id = aws_eip.nat_eip2.id
-  subnet_id     = aws_subnet.vpc_private_subnet_private_2.id
-}
