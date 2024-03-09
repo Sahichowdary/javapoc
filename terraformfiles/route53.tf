@@ -1,7 +1,7 @@
 # AWS Route53 zone data source with the domain name and private zone set to false
 data "aws_route53_zone" "zone" {
   name    = var.domain-name
-  private = false
+  
 }
 
 # AWS Route53 record resource for certificate validation with dynamic for each loop and properties for name, records, type, zone id, and ttl
