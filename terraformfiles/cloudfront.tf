@@ -1,9 +1,9 @@
-
-# Create CloudFront distribution
+# Update CloudFront distribution to point to NLB
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
+  depends_on = [aws_lb_target_group.eks_target_group]
   origin {
-    domain_name = aws_lb.eks_network_load_balancer.dns_name
-    origin_id   = "eks_network_load_balancer"
+    domain_name = aws_lb.nlb.domain_name
+    origin_id   = aws_lb.nlb.id
 
     custom_origin_config {
       http_port              = 80
@@ -54,24 +54,13 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   }
 }
 
-
-
-resource "aws_lb" "eks_network_load_balancer" {
-  name               = "eks-network-lb"
-  internal           = false
-  load_balancer_type = "network"
-  subnets            = var.private_subnet_ids
-  
-  enable_cross_zone_load_balancing = true
-
-  tags = {
-    Name = "eks-network-lb"
-  }
-}
-
-variable "private_subnet_ids" {
-  type    = list(string)
-  default = ["aws_subnet.vpc_private_subnet_private_1.id", "aws_subnet.vpc_private_subnet_private_2.id"]
+# Update NLB security group to allow traffic from CloudFront
+resource "aws_security_group_rule" "cloudfront_to_nlb" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "HTTPS"
+  security_group_id = aws_security_group.nlb_sg.id
 }
 
 output "cloudfront_url" {
