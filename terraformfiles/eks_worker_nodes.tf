@@ -1,5 +1,5 @@
 resource "aws_iam_role" "nodes" {
-  name = "eks-node-group-nodes"
+  name = "eks-node-group-nodesPOC"
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -30,7 +30,7 @@ resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadO
 
 resource "aws_eks_node_group" "private-nodes" {
   cluster_name    = aws_eks_cluster.demo.name
-  node_group_name = "private-nodes"
+  node_group_name = "private-nodesPOC"
   node_role_arn   = aws_iam_role.nodes.arn
 
   subnet_ids = [
